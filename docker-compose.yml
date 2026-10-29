@@ -1,0 +1,44 @@
+services:
+  bmldb:
+    image: mysql:9.7
+    container_name: bmldb
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_DATABASE: db_taller
+    ports:
+      - 3307:3306
+    volumes:
+      - ./db_dump:/docker-entrypoint-initdb.d
+      - ./mysql:/var/lib/mysql
+    secrets:
+      - db_password
+
+  bmldatos:
+    container_name: bmldatos
+    build:
+      context: .
+      dockerfile: ./Data/Dockerfile
+    volumes:
+      - ./Data/public:/var/www/html/public
+      - ./Data/src:/var/www/html/src
+    secrets:
+      - db_password
+    depends_on:
+      - bmldb
+
+  bmlnegocio:
+    container_name: bmlnegocio
+    build:
+      context: .
+      dockerfile: ./Business/Dockerfile
+    volumes:
+      - ./Business/public:/var/www/html/public
+      - ./Business/src:/var/www/html/src
+    ports:
+      - 9090:80
+    depends_on:
+      - bmldatos
+
+secrets:
+  db_password:
+    file: ./db_password.txt
