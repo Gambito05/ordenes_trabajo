@@ -1,6 +1,3 @@
---CREATE DATABASE IF NOT EXISTS db_taller;
---USE db_taller;
-
 CREATE TABLE ordenes_trabajo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     placa_vehiculo VARCHAR(10) NOT NULL,

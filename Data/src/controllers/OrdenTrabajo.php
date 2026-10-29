@@ -25,7 +25,7 @@ class OrdenTrabajo{
         }
 
         $ordenes = OrdenTrabajoModel::query()
-            -select(['id','placa_vehiculo','propietario','descripcion_falla','costo_estimado','estado','fecha_ingreso'])
+            ->select(['id','placa_vehiculo','propietario','descripcion_falla','costo_estimado','estado','fecha_ingreso'])
             ->get()
             ->toArray();
         return $this->json($response,['data'=>$ordenes],200);

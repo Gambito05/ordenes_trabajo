@@ -1,0 +1,32 @@
+@host = http://localhost:9090/api
+@uri= {{host}}/ordenes_trabajo
+
+
+POST {{uri}}
+Content-Type: application/json
+
+{
+    "placa_vehiculo": "ABC-345",
+    "propietario": "Bryan Mendez Lara",
+    "descripcion_falla": "Ruido en la suspension delantera al pasar por huecos",
+    "costo_estimado": 850050.00
+}
+###
+
+GET {{uri}}
+###
+
+GET {{uri}}/1
+###
+
+PUT {{uri}}/1
+Content-Type: application/json
+
+{
+    "estado": "En Proceso",
+    "costo_estimado": 92000
+}
+###
+
+DELETE {{uri}}/2
+###
